@@ -6,7 +6,6 @@ as well as dozens of implementations in many different languages.
 
 Since there were a couple of C implementations already, 
 and since, as a novice developer, my implementation is unlikely to be an improvement on the others,
-I have decided to keep my code entirely separete from the original repository. 
+I have decided to keep my code entirely separate from the original repository. 
+I have retained the test suite and lib here.
 But please do check out the original repository for more information!
-
-I have retained the test suite and some documentation from the original repo here.
