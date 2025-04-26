@@ -1,6 +1,4 @@
 
-test_str = "(* 76/4 0.9 (+ 5 6))"
-
 def tokenize(input)
   pattern = /[\s,]*(~@|[\[\]{}()'`~^@]|"(?:\\.|[^\\"])*"?|;.*|[^\s\[\]{}('"`,;)]*)/
   input.scan(pattern).flatten.select { |e| e != "" }
@@ -24,11 +22,6 @@ class Reader
 
 end
 
-
-# something is wrong with my regex here
-# does the plus sign increment a number?!
-# that appears to be what it's doing
-
 def read_atom(reader)
   atom = reader.next
   case atom
@@ -47,16 +40,18 @@ def read_atom(reader)
   end
 end
 
-# the mutual recursion between read_list and read_form has issues
-
+# this doesn't quite work because it halts at the end of the first list
 def read_list(reader)
-  until reader.next == ")"
-    read_form(reader)
+  sexp = Array.new
+  until reader.peek == ")"
+    sexp.push(read_form(reader))
   end
+  return sexp 
 end
 
 def read_form(reader)
   if reader.peek == "("
+    reader.next
     read_list(reader)
   else
     read_atom(reader)
