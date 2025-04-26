@@ -1,4 +1,5 @@
 require "readline"
+require_relative "reader"
 
 def READ(str)
   return str
@@ -9,10 +10,9 @@ def EVAL(expre)
 end
 
 def PRINT(result)
-  puts "=> " + result
+  puts "=> " + result.to_s
 end
 
 while buf = Readline.readline("user> ", true)
   PRINT(EVAL(READ(buf)))
 end
-
