@@ -40,19 +40,27 @@ def read_atom(reader)
   end
 end
 
-# this doesn't quite work because it halts at the end of the first list
 def read_list(reader)
   sexp = Array.new
-  until reader.peek == ")"
+  if reader.next != "("
+    raise "Expected list"
+  end
+  until (token = reader.peek) == ")"
+    if not token
+      raise "Unexpected EOF"
+    end
     sexp.push(read_form(reader))
   end
-  return sexp 
+  reader.next
+  return sexp
 end
 
 def read_form(reader)
-  if reader.peek == "("
-    reader.next
+  case reader.peek
+  when "("
     read_list(reader)
+  when ")"
+    raise "Error: Unbalanced parentheses"
   else
     read_atom(reader)
   end
