@@ -43,7 +43,7 @@ end
 def read_list(reader)
   sexp = Array.new
   if reader.next != "("
-    raise "Expected list"
+      raise "Expected list"
   end
   until (token = reader.peek) == ")"
     if not token
@@ -51,7 +51,7 @@ def read_list(reader)
     end
     sexp.push(read_form(reader))
   end
-  reader.next
+  reader.next # eliminate last paren
   return sexp
 end
 
@@ -69,4 +69,3 @@ end
 def read_str(str)
   read_form(Reader.new(str))
 end
-

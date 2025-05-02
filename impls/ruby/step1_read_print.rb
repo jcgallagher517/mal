@@ -1,8 +1,9 @@
 require "readline"
 require_relative "reader"
+require_relative "printer"
 
 def READ(str)
-  return str
+  return read_str(str)
 end
 
 def EVAL(expre)
@@ -10,7 +11,8 @@ def EVAL(expre)
 end
 
 def PRINT(result)
-  puts "=> " + result.to_s
+  print "=> "
+  pr_str(result)
 end
 
 while buf = Readline.readline("user> ", true)
