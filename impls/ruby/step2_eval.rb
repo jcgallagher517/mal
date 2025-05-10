@@ -24,7 +24,7 @@ def EVAL(ast, repl_env)
     ast[1..].inject { |a, b| repl_env[ast.first]
                         .call(EVAL(a, repl_env), EVAL(b, repl_env)) }
   else
-    raise "Invalid symbol encountered."
+    STDERR.puts "Invalid symbol encountered: #{ast.first}."
   end
 end
 

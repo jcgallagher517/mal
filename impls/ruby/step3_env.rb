@@ -24,8 +24,9 @@ def EVAL(ast, env)
     pr_str(ast)
   end
 
-
-  if ast.is_a?(Array)
+  if ast.is_a?(Array) && ast.empty?
+    return nil
+  elsif ast.is_a?(Array) && !ast.empty?
 
     ast[1..].inject do |a, b|
       case ast.first
