@@ -2,7 +2,8 @@ require "readline"
 require_relative "reader"
 require_relative "printer"
 
-repl_env = {'+': ->(a, b) { a + b },
+repl_env = {'DEBUG-EVAL': nil,
+            '+': ->(a, b) { a + b },
             '-': ->(a, b) { a - b },
             '*': ->(a, b) { a * b },
             '/': ->(a, b) { a / b }}
@@ -12,6 +13,10 @@ def READ(str)
 end
 
 def EVAL(ast, repl_env)
+  if repl_env.keys.include?(:'DEBUG-EVAL') && repl_env[:'DEBUG-EVAL']
+    print "EVAL: "
+    pr_str(ast)
+  end
   unless ast.is_a?(Array)
     return ast
   end
