@@ -37,8 +37,10 @@ def read_atom(reader)
     false
   when /^nil$/
     nil
+  when /^"(?:[^"\\]|\\.)*"?/
+    atom.to_s
   else
-    atom.to_sym # default is symbol type for now
+    atom.to_sym
   end
 end
 
