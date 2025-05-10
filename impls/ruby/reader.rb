@@ -33,10 +33,12 @@ def read_atom(reader)
     atom.to_r
   when /^true$/
     true
-  when /^(?:nil|false)$/
+  when /^false$/
     false
+  when /^nil$/
+    nil
   else
-    atom # default is symbol type for now
+    atom.to_sym # default is symbol type for now
   end
 end
 
