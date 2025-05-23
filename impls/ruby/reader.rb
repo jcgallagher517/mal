@@ -37,6 +37,8 @@ def read_atom(reader)
     false
   when /^nil$/
     nil
+  when nil
+    nil
   when /^"(?:[^"\\]|\\.)*"?/
     atom.to_s
   else

@@ -34,15 +34,12 @@ def EVAL(ast, env)
         env.set(a, EVAL(b, env))
         EVAL(a, env)
       when :'let*'
-        # syntatically slightly different than desired I think
-        # my implementation is like common lisp, where
-        # (let ((x 5) (y 6)) (* x y)) => 30
-        # as opposed to even/odd pairs in binding form
-        # (let (x 5 y 6) (* x y)) => 30
         inner = Env.new(env)
-        a.each { |bind| inner.set(bind[0], EVAL(bind[1], inner)) }
+        a.each_slice(2).each { |name, val| inner.set(name, EVAL(val, inner)) }
         EVAL(b, inner)
       else
+        # here, make sure env lookup is a non-fatal error
+        # i.e. that it doesn't kill the repl
         env.get(ast.first).call(EVAL(a, env), EVAL(b, env))
       end
     end
